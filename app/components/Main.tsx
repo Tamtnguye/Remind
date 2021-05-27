@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import { StyleSheet, 
     Text, 
     View,
-    TextInput,
-    TouchableOpacity,
-    ScrollView, } from 'react-native';
-
+    TextInput , //to allow text input
+    TouchableOpacity, //wrapper for making views respond properly to touches
+    ScrollView,//a view group that is used to make vertically scrollable views 
+} from 'react-native';
+import Note from "./Notes";
 
  const Main = () => {
+
+    // default for the notes is an empty array
+    const [notes, setNotes] = useState([]);
+    // default for user input is an empty string
+    const [inputVal, setInputVal] = useState('');
 
     return (
         <View style={styles.container}>
@@ -15,11 +21,13 @@ import { StyleSheet,
             <Text style={styles.headerText}> - Remind To Do's</Text>
             </View>
             <ScrollView style={styles.scrollContainer}>
-
+                <Note />
 
             </ScrollView>
             <View style={styles.footer}>
-            <TextInput style={styles.textInput}
+            <TextInput 
+            onChangeText={(userInput) => setInputVal(userInput)}  //event that will pull value from user input
+            style={styles.textInput}
             placeholder="> add something ..."
             placeholderTextColor="#eee"
             underlineColorAndroid="transparent">
@@ -34,6 +42,7 @@ import { StyleSheet,
     );
  };
 
+ //instead of using css we use the stylesheet class to create css 
  const styles = StyleSheet.create({
      container: {
          flex: 1,
